@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Nuestra Boda! - Invitación Digital</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- VARIABLES Y ESTILOS GLOBALES --- */
+        :root {
+            --color-principal: #d4af37; /* Dorado Elegante */
+            --color-oscuro: #2c3e50;
+            --color-claro: #fcfbfa;
+            --fuente-elegante: 'Great Vibes', cursive;
+            --fuente-texto: 'Montserrat', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--fuente-texto);
+            background-color: var(--color-claro);
+            color: var(--color-oscuro);
+            text-align: center;
+            overflow-x: hidden;
+        }
+
+        section {
+            padding: 60px 20px;
+        }
+
+        h2 {
+            font-family: var(--fuente-elegante);
+            font-size: 3.2rem;
+            color: var(--color-principal);
+            margin-bottom: 20px;
+        }
+
+        /* --- PORTADA (HERO) --- */
+        .portada {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), 
+                        url('https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1000') no-repeat center center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            padding: 20px;
+        }
+
+        .portada h1 {
+            font-family: var(--fuente-elegante);
+            font-size: 4.8rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.7);
+        }
+
+        .portada p {
+            font-size: 1.3rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
+        }
+
+        /* --- CONTADOR --- */
+        .contador-container {
+            background-color: #f4f0ea;
+        }
+        
+        .cuenta-atras {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .tiempo-box {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            min-width: 75px;
+        }
+
+        .tiempo-box span {
+            display: block;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--color-principal);
+        }
+
+        .tiempo-box small {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: #7f8c8d;
+        }
+
+        /* --- DETALLES Y BOTONES --- */
+        .btn-enlace {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 30px;
+            background-color: var(--color-oscuro);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .btn-enlace:hover {
+            background-color: var(--color-principal);
+            transform: translateY(-2px);
+        }
+
+        /* --- FORMULARIO RSVP --- */
+        .rsvp {
+            background-color: #f4f0ea;
+        }
+
+        form {
+            max-width: 500px;
+            margin: 0 auto;
+            background: white;
+            padding: 35px 25px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-top: 18px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--color-oscuro);
+        }
+
+        input[type="text"], select {
+            width: 100%;
+            padding: 12px;
+            margin-top: 6px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-family: var(--fuente-texto);
+            font-size: 0.95rem;
+            outline: none;
+        }
+
+        input[type="text"]:focus, select:focus {
+            border-color: var(--color-principal);
+        }
+
+        /* Bloque de opciones musicales */
+        .opciones-musica {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 8px 0 20px 0;
+            background: #fdfcfb;
+            padding: 18px;
+            border-radius: 8px;
+            border: 1px dashed var(--color-principal);
+        }
+
+        .musica-item {
+            font-weight: 400 !important;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            margin-top: 0 !important;
+        }
+
+        .musica-item input[type="checkbox"] {
+            transform: scale(1.3);
+            accent-color: var(--color-principal);
+            cursor: pointer;
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            background-color: var(--color-principal);
+            color: white;
+            border: none;
+            padding: 14px;
+            margin-top: 20px;
+            border-radius: 6px;
+            font-size: 1.05rem;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        button[type="submit"]:hover {
+            background-color: var(--color-oscuro);
+        }
+
+        /* --- VENTANA EMERGENTE (MODAL) --- */
+        #modal-mensaje {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+
+        #modal-mensaje.mostrar {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-contenido {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 16px;
+            max-width: 420px;
+            width: 90%;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+            transform: translateY(-40px);
+            transition: transform 0.4s ease;
+        }
+
+        #modal-mensaje.mostrar .modal-contenido {
+            transform: translateY(0);
+        }
+
+        .modal-icono {
+            font-size: 3.8rem;
+            margin-bottom: 15px;
+            animation: bounce 1.5s infinite;
+        }
+
+        #modal-titulo {
+            font-family: var(--fuente-elegante);
+            font-size: 2.8rem;
+            color: var(--color-principal);
+            margin-bottom: 12px;
+        }
+
+        #modal-texto {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--color-oscuro);
+            margin-bottom: 25px;
+        }
+
+        .btn-cerrar {
+            background-color: var(--color-oscuro);
+            color: white;
+            border: none;
+            padding: 12px 35px;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .btn-cerrar:hover {
+            background-color: var(--color-principal);
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+    </style>
+</head>
+<body>
+
+    <section class="portada">
+        <h1>Carlos & Alejandra</h1>
+        <p>¡Nos Casamos!</p>
+    </section>
+
+    <section class="contador-container">
+        <h2>Faltan muy pocos días...</h2>
+        <div class="cuenta-atras">
+            <div class="tiempo-box">
+                <span id="dias">00</span>
+                <small>Días</small>
+            </div>
+            <div class="tiempo-box">
+                <span id="horas">00</span>
+                <small>Horas</small>
+            </div>
+            <div class="tiempo-box">
+                <span id="minutos">00</span>
+                <small>Min.</small>
+            </div>
+            <div class="tiempo-box">
+                <span id="segundos">00</span>
+                <small>Seg.</small>
+            </div>
+        </div>
+    </section>
+
+    <section class="detalles">
+        <h2>Lugar y Fecha</h2>
+        <p><strong>Sábado, 17 de Octubre de 2026</strong></p>
+        <p style="margin-top: 12px;">La ceremonia y la recepción se llevarán a cabo en:</p>
+        <p><em>Jardín de Eventos "Las Flores" - Av. Principal 123</em></p>
+        
+        <a href="https://maps.google.com" target="_blank" class="btn-enlace">Ver Ubicación en GPS 📍</a>
+    </section>
+
+    <section class="rsvp">
+        <h2>Confirmación de Asistencia</h2>
+        <p style="margin-bottom: 25px;">Por favor, confirma tu asistencia antes del 30 de Septiembre.</p>
+        
+        <form id="form-boda">
+            <label for="nombre">Nombre Completo:</label>
+            <input type="text" id="nombre" name="nombre" required placeholder="Ej: Juan Pérez">
+
+            <label for="asistencia">¿Asistirás?</label>
+            <select id="asistencia" name="asistencia" required>
+                <option value="">Selecciona una opción</option>
+                <option value="si">¡Sí, ahí estaré!</option>
+                <option value="no">Lo siento, no podré ir</option>
+            </select>
+
+            <label>¿Qué ritmos te harán bailar toda la noche? (Elige tus favoritos):</label>
+            <div class="opciones-musica">
+                <label class="musica-item"><input type="checkbox" name="musica" value="Salsa y Bachata"> Salsa y Bachata 💃</label>
+                <label class="musica-item"><input type="checkbox" name="musica" value="Reggaetón y Urbano"> Reggaetón y Urbano 🔥</label>
+                <label class="musica-item"><input type="checkbox" name="musica" value="Rock y Pop 80s/90s"> Rock y Pop 80s/90s 🎸</label>
+                <label class="musica-item"><input type="checkbox" name="musica" value="Cumbia y música tropical"> Cumbia y Música Tropical 🪗</label>
+                <label class="musica-item"><input type="checkbox" name="musica" value="Electrónica y Pop Actual"> Electrónica y Pop Actual ⚡</label>
+            </div>
+
+            <label for="cancion">¿Qué canción específica no puede faltar?</label>
+            <input type="text" id="cancion" name="cancion" placeholder="Ej: Danza Kuduro - Don Omar">
+
+            <button type="submit">Confirmar Mi Asistencia</button>
+        </form>
+    </section>
+
+    <div id="modal-mensaje">
+        <div class="modal-contenido">
+            <div class="modal-icono" id="modal-emoji">🎉💃✨</div>
+            <h3 id="modal-titulo">¡Tu lugar está reservado!</h3>
+            <p id="modal-texto">Cargando...</p>
+            <button id="btn-cerrar-modal" class="btn-cerrar">¡Genial!</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // --- 1. SCRIPT DEL CONTADOR REGRESIVO ---
+            const fechaBoda = new Date(2026, 9, 17, 17, 0, 0).getTime();
+
+            const actualizacionContador = setInterval(function() {
+                const ahora = new Date().getTime();
+                const distancia = fechaBoda - ahora;
+
+                const dias = Math.floor(distancia / (1000 * 60 * 60 * 24));
+                const horas = Math.floor((distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutesVal = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
+                const segundos = Math.floor((distancia % (1000 * 60)) / 1000);
+
+                const elDias = document.getElementById("dias");
+                const elHoras = document.getElementById("horas");
+                const elMinutos = document.getElementById("minutos");
+                const elSegundos = document.getElementById("segundos");
+
+                if (elDias && elHoras && elMinutos && elSegundos) {
+                    elDias.innerText = dias < 10 ? "0" + dias : dias;
+                    elHoras.innerText = horas < 10 ? "0" + horas : horas;
+                    elMinutos.innerText = minutesVal < 10 ? "0" + minutesVal : minutesVal;
+                    elSegundos.innerText = segundos < 10 ? "0" + segundos : segundos;
+                }
+
+                if (distancia < 0) {
+                    clearInterval(actualizacionContador);
+                    const contenedorContador = document.querySelector(".cuenta-atras");
+                    if (contenedorContador) {
+                        contenedorContador.innerHTML = "<h3>¡Llegó el gran día! 🎉</h3>";
+                    }
+                }
+            }, 1000);
+
+            // --- 2. SCRIPT DEL FORMULARIO Y POP-UP ---
+            const formulario = document.getElementById('form-boda');
+            if (formulario) {
+                formulario.addEventListener('submit', function(e) {
+                    e.preventDefault(); 
+                    
+                    const nombre = document.getElementById('nombre').value;
+                    const asistencia = document.getElementById('asistencia').value;
+                    
+                    const checkboxes = document.querySelectorAll('input[name="musica"]:checked');
+                    let generosSeleccionados = [];
+                    checkboxes.forEach((cb) => {
+                        generosSeleccionados.push(cb.value);
+                    });
+
+                    const modal = document.getElementById('modal-mensaje');
+                    const tituloHtml = document.getElementById('modal-titulo');
+                    const textoHtml = document.getElementById('modal-texto');
+                    const emojiHtml = document.getElementById('modal-emoji');
+
+                    if (modal && tituloHtml && textoHtml && emojiHtml) {
+                        if(asistencia === "si") {
+                            emojiHtml.innerText = "🎉💃✨";
+                            tituloHtml.innerText = "¡Confirmado!";
+                            
+                            let mensajeMusica = generosSeleccionados.length > 0 
+                                ? `<br><br>Ya anotamos que quieres romper la pista con <strong>${generosSeleccionados.slice(0, 2).join(' y ')}</strong>. ¡Nos vemos en la fiesta!`
+                                : "<br><br>¡Prepárate para vivir una noche inolvidable junto a nosotros!";
+
+                            textoHtml.innerHTML = `¡Qué gran alegría, <strong>${nombre}</strong>! Tu asistencia ha sido registrada con éxito. Gracias por ser parte de este momento tan importante.${mensajeMusica}`;
+                        } else {
+                            emojiHtml.innerText = "🥺❤️";
+                            tituloHtml.innerText = "Te extrañaremos";
+                            textoHtml.innerHTML = `Oh, qué pena que no puedas acompañarnos, <strong>${nombre}</strong>. De verdad haremos falta tus pasos de baile, pero valoramos mucho que nos hayas avisado. ¡Te mandamos un gran abrazo!`;
+                        }
+                        
+                        modal.classList.add('mostrar');
+                    }
+                });
+            }
+
+            const btnCerrar = document.getElementById('btn-cerrar-modal');
+            if (btnCerrar) {
+                btnCerrar.addEventListener('click', function() {
+                    const modal = document.getElementById('modal-mensaje');
+                    if (modal) {
+                        modal.classList.remove('mostrar');
+                    }
+                    if (formulario) {
+                        formulario.reset();
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
