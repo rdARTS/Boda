@@ -290,7 +290,7 @@
     <body>
 
         <section class="portada">
-            <h1> Elí  y Flor de Liz</h1>
+            <h1> Elí  y Flor De Liz</h1>
             <p>¡Nos Casamos!</p>
         </section>
 
@@ -363,99 +363,137 @@
                 <div class="modal-icono" id="modal-emoji">🎉💃✨</div>
                 <h3 id="modal-titulo">¡Tu lugar está reservado!</h3>
                 <p id="modal-texto">Cargando...</p>
-                <button id="btn-cerrar-modal" class="btn-cerrar">¡Genial!</button>
+                <button id="btn-cerrar-modal" class="btn-cerrar">¡DE ACUERDO!</button>
             </div>
         </div>
 
         <script>
             document.addEventListener("DOMContentLoaded", function() {
+                const URL_EXCEL ="https://script.google.com/macros/s/AKfycbwZd4ZlzNnzAC_gjBGWmgB2LwIPzrMzyPJHgzh_fbA-RtfA1sycDlUpu5RifPS8jkmI3w/exec"
                 // --- 1. SCRIPT DEL CONTADOR REGRESIVO ---
-                const fechaBoda = new Date(2026, 9, 17, 17, 0, 0).getTime();
+               // --- 1. SCRIPT DEL CONTADOR REGRESIVO (Tu código original) ---
+        const fechaBoda = new Date(2026, 8, 26, 12, 0, 0).getTime();
+        const actualizacionContador = setInterval(function() {
+            const ahora = new Date().getTime();
+            const distancia = fechaBoda - ahora;
 
-                const actualizacionContador = setInterval(function() {
-                    const ahora = new Date().getTime();
-                    const distancia = fechaBoda - ahora;
+            const dias = Math.floor(distancia / (1000 * 60 * 60 * 24));
+            const horas = Math.floor((distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutesVal = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
+            const segundos = Math.floor((distancia % (1000 * 60)) / 1000);
 
-                    const dias = Math.floor(distancia / (1000 * 60 * 60 * 24));
-                    const horas = Math.floor((distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                    const minutesVal = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
-                    const segundos = Math.floor((distancia % (1000 * 60)) / 1000);
+            const elDias = document.getElementById("dias");
+            const elHoras = document.getElementById("horas");
+            const elMinutos = document.getElementById("minutos");
+            const elSegundos = document.getElementById("segundos");
 
-                    const elDias = document.getElementById("dias");
-                    const elHoras = document.getElementById("horas");
-                    const elMinutos = document.getElementById("minutos");
-                    const elSegundos = document.getElementById("segundos");
+            if (elDias && elHoras && elMinutos && elSegundos) {
+                elDias.innerText = dias < 10 ? "0" + dias : dias;
+                elHoras.innerText = horas < 10 ? "0" + horas : horas;
+                elMinutos.innerText = minutesVal < 10 ? "0" + minutesVal : minutesVal;
+                elSegundos.innerText = segundos < 10 ? "0" + segundos : segundos;
+            }
 
-                    if (elDias && elHoras && elMinutos && elSegundos) {
-                        elDias.innerText = dias < 10 ? "0" + dias : dias;
-                        elHoras.innerText = horas < 10 ? "0" + horas : horas;
-                        elMinutos.innerText = minutesVal < 10 ? "0" + minutesVal : minutesVal;
-                        elSegundos.innerText = segundos < 10 ? "0" + segundos : segundos;
-                    }
-
-                    if (distancia < 0) {
-                        clearInterval(actualizacionContador);
-                        const contenedorContador = document.querySelector(".cuenta-atras");
-                        if (contenedorContador) {
-                            contenedorContador.innerHTML = "<h3>¡Llegó el gran día! 🎉</h3>";
-                        }
-                    }
-                }, 1000);
-
-                // --- 2. SCRIPT DEL FORMULARIO Y POP-UP ---
-                const formulario = document.getElementById('form-boda');
-                if (formulario) {
-                    formulario.addEventListener('submit', function(e) {
-                        e.preventDefault(); 
-                        
-                        const nombre = document.getElementById('nombre').value;
-                        const asistencia = document.getElementById('asistencia').value;
-                        
-                        const checkboxes = document.querySelectorAll('input[name="musica"]:checked');
-                        let generosSeleccionados = [];
-                        checkboxes.forEach((cb) => {
-                            generosSeleccionados.push(cb.value);
-                        });
-
-                        const modal = document.getElementById('modal-mensaje');
-                        const tituloHtml = document.getElementById('modal-titulo');
-                        const textoHtml = document.getElementById('modal-texto');
-                        const emojiHtml = document.getElementById('modal-emoji');
-
-                        if (modal && tituloHtml && textoHtml && emojiHtml) {
-                            if(asistencia === "si") {
-                                emojiHtml.innerText = "🎉💃✨";
-                                tituloHtml.innerText = "¡Confirmado!";
-                                
-                                let mensajeMusica = generosSeleccionados.length > 0 
-                                    ? `<br><br>Ya anotamos que quieres romper la pista con <strong>${generosSeleccionados.slice(0, 2).join(' y ')}</strong>. ¡Nos vemos en la fiesta!`
-                                    : "<br><br>¡Prepárate para vivir una noche inolvidable junto a nosotros!";
-
-                                textoHtml.innerHTML = `¡Qué gran alegría, <strong>${nombre}</strong>! Tu asistencia ha sido registrada con éxito. Gracias por ser parte de este momento tan importante.${mensajeMusica}`;
-                            } else {
-                                emojiHtml.innerText = "🥺❤️";
-                                tituloHtml.innerText = "Te extrañaremos";
-                                textoHtml.innerHTML = `Oh, qué pena que no puedas acompañarnos, <strong>${nombre}</strong>. De verdad haremos falta tus pasos de baile, pero valoramos mucho que nos hayas avisado. ¡Te mandamos un gran abrazo!`;
-                            }
-                            
-                            modal.classList.add('mostrar');
-                        }
-                    });
+            if (distancia < 0) {
+                clearInterval(actualizacionContador);
+                const contenedorContador = document.querySelector(".cuenta-atras");
+                if (contenedorContador) {
+                    contenedorContador.innerHTML = "<h3>¡Llegó el gran día! 🎉</h3>";
                 }
+            }
+        }, 1000);
 
-                const btnCerrar = document.getElementById('btn-cerrar-modal');
-                if (btnCerrar) {
-                    btnCerrar.addEventListener('click', function() {
-                        const modal = document.getElementById('modal-mensaje');
-                        if (modal) {
-                            modal.classList.remove('mostrar');
+        // --- 2. SCRIPT DEL FORMULARIO CON ENVÍO AUTOMÁTICO A EXCEL ---
+        const formulario = document.getElementById('form-boda');
+        if (formulario) {
+            formulario.addEventListener('submit', function(e) {
+                e.preventDefault(); // Evita que la página se recargue por completo
+                
+                // Cambiar el estado del botón para que el usuario sepa que se está procesando
+                const botonEnvio = formulario.querySelector('button[type="submit"]');
+                const textoOriginalBoton = botonEnvio.innerText;
+                botonEnvio.disabled = true;
+                botonEnvio.innerText = "Registrando asistencia...";
+
+                // Capturar los valores que escribió el invitado
+                const nombre = document.getElementById('nombre').value;
+                const asistencia = document.getElementById('asistencia').value;
+                const cancion = document.getElementById('cancion').value || "No especificó";
+                
+                const checkboxes = document.querySelectorAll('input[name="musica"]:checked');
+                let generosSeleccionados = [];
+                checkboxes.forEach((cb) => {
+                    generosSeleccionados.push(cb.value);
+                });
+                const musicaTexto = generosSeleccionados.length > 0 ? generosSeleccionados.join(', ') : "Ninguno";
+
+                // Estructurar los datos para enviarlos al Excel
+                const datosInvitado = {
+                    nombre: nombre,
+                    asistencia: asistencia === "si" ? "SÍ Asistirá " : "NO Asistirá ",
+                    musica: musicaTexto,
+                    cancion: cancion
+                };
+
+                // Enviar los datos en segundo plano al Excel usando Fetch (JavaScript moderno)
+                fetch(URL_EXCEL, {
+                    method: 'POST',
+                    mode: 'no-cors', // Permite enviar datos desde GitHub a Google sin bloqueos de seguridad
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(datosInvitado)
+                })
+                .then(() => {
+                    // Una vez guardado en el Excel, se abre tu ventana emergente de éxito de siempre
+                    const modal = document.getElementById('modal-mensaje');
+                    const tituloHtml = document.getElementById('modal-titulo');
+                    const textoHtml = document.getElementById('modal-texto');
+                    const emojiHtml = document.getElementById('modal-emoji');
+
+                    if (modal && tituloHtml && textoHtml && emojiHtml) {
+                        if(asistencia === "si") {
+                            emojiHtml.innerText = "🎉💃✨";
+                            tituloHtml.innerText = "¡Confirmado!";
+                            
+                            let mensajeMusica = generosSeleccionados.length > 0 
+                                ? `<br><br>Ya anotamos que quieres romper la pista con <strong>${generosSeleccionados.slice(0, 2).join(' y ')}</strong>. ¡Nos vemos en la fiesta!`
+                                : "<br><br>¡Prepárate para vivir una noche inolvidable junto a nosotros!";
+
+                            textoHtml.innerHTML = `¡Qué gran alegría, <strong>${nombre}</strong>! Tu asistencia ha sido registrada con éxito. Gracias por ser parte de este momento tan importante.${mensajeMusica}`;
+                        } else {
+                            emojiHtml.innerText = "🥺❤️";
+                            tituloHtml.innerText = "Te extrañaremos";
+                            textoHtml.innerHTML = `Oh, qué pena que no puedas acompañarnos, <strong>${nombre}</strong>. De verdad haremos falta tus pasos de baile, pero valoramos mucho que nos hayas avisado. ¡Te mandamos un gran abrazo!`;
                         }
-                        if (formulario) {
-                            formulario.reset();
-                        }
-                    });
+                        
+                        modal.classList.add('mostrar');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Hubo un pequeño problema al conectar con el servidor. Inténtalo de nuevo por favor.');
+                })
+                .finally(() => {
+                    // Restaurar el botón a su estado normal
+                    botonEnvio.disabled = false;
+                    botonEnvio.innerText = textoOriginalBoton;
+                });
+            });
+        }
+
+        // --- Cerrar el modal y limpiar el formulario ---
+        const btnCerrar = document.getElementById('btn-cerrar-modal');
+        if (btnCerrar) {
+            btnCerrar.addEventListener('click', function() {
+                const modal = document.getElementById('modal-mensaje');
+                if (modal) {
+                    modal.classList.remove('mostrar');
+                }
+                if (formulario) {
+                    formulario.reset();
                 }
             });
+        }
+    });
         </script>
     </body>
     </html>
